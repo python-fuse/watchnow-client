@@ -2,32 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+:root {
+  --gradient-1: #cd55b3;
+  --gradient-2: #5622af;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: linear-gradient(to bottom, #cd55b3, #5622af);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+/* if input dont have text hide place holder, if theres text show placeholder */
+
+.label {
+  position: absolute;
+  top: 10px;
+  left: 8px;
+  pointer-events: none;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.form-input:focus + label {
+  top: -22px;
+  left: 0;
+  font-size: 14px;
+}
+
+.form-input:focus::placeholder {
+  color: white;
+}
+
+.form-input:not(focus)::placeholder {
+  color: transparent;
+}
+
+.form-input:not(:placeholder-shown) + label {
+  top: -22px;
+  left: 0;
+  font-size: 14px;
 }
