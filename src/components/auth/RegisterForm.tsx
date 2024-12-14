@@ -3,7 +3,7 @@ import { useState } from "react";
 import FormInput from "../global/FormInput";
 import Button from "../global/Button";
 import { useFormik } from "formik";
-import AuthService from "@/lib/auth";
+import AuthService from "@/lib/AuthService";
 import { useRouter } from "next/navigation";
 
 const RegisterForm = () => {
