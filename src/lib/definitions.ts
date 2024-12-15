@@ -6,6 +6,7 @@ export type Video = {
   thumbnail: string;
   youtubeId: string;
   userId: string;
+  status: "Not Started" | "Watching" | "Finished";
   createdAt: string;
   updatedAt: string;
 };

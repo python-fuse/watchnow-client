@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import LoginForm from "@/components/auth/LoginForm";
 
-const page = () => {
+const page = async () => {
   return (
     <div className="max-w-[400px] py-8 mx-auto space-y-4">
       <div className="flex flex-col items-center gap-y-2">

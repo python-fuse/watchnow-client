@@ -6,7 +6,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  color: white;
 }
 
 :root {
@@ -15,6 +14,7 @@
 }
 
 body {
+  color: white;
   background: linear-gradient(to bottom, #cd55b3, #5622af);
   background-repeat: no-repeat;
   background-attachment: fixed;

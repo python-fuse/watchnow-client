@@ -35,7 +35,9 @@ class AuthService {
 
   async checkAuth() {
     try {
-      const response = await axios.get("/api/auth/check-auth");
+      const response = await axios.get("/api/auth/check-auth", {
+        withCredentials: true,
+      });
       return response.data;
     } catch (e) {
       throw e;
@@ -44,8 +46,7 @@ class AuthService {
 
   async logout() {
     try {
-      await axios.post(`/api/auth/logout`);
-      localStorage.removeItem("user");
+      await axios.post("/api/auth/logout");
     } catch (e) {
       throw e;
     }

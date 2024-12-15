@@ -5,7 +5,9 @@ interface ButtonProps {
   loading?: boolean;
   type?: "button" | "submit" | "reset";
   disabled?: boolean;
-  onClick?: () => void;
+  className?: string;
+  onClick?: (() => void) | (() => Promise<void>);
+  children?: React.ReactNode;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -14,6 +16,8 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   type = "button",
   disabled,
+  className,
+  children,
 }) => {
   return (
     <button
@@ -22,11 +26,13 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={loading}
       className={
-        "bg-violet-500 text-white rounded-md p-2 hover:bg-violet-600 duration-300 border-2 border-transparent hover:border-violet-500 grid place-content-center h-[43px] " +
-        (loading ? "cursor-not-allowed pointer-events-none" : "")
+        "bg-violet-500 flex items-center gap-x-2 text-sm  text-white rounded-md p-2 hover:bg-violet-600 duration-300 border-2 border-transparent hover:border-violet-500  place-content-center " +
+        (loading ? "cursor-not-allowed pointer-events-none " : "") +
+        " " +
+        className
       }
     >
-      {loading ? <Spinner /> : text}
+      {loading ? <Spinner /> : children ? children : text}
     </button>
   );
 };
