@@ -6,28 +6,30 @@ import { useState } from "react";
 import VideoService from "@/lib/VideoService";
 import useAuth from "@/hooks/useAuth";
 
-const NewVideoForm = () => {
+const NewVideoForm = ({ close }: { close: () => void }) => {
   const [videoUrl, setVideoUrl] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const { user } = useAuth();
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (user === null) return;
     if (!videoUrl) return;
     try {
       setLoading(true);
-      VideoService.createVideo(user?.id, videoUrl);
+      await VideoService.createVideo(user?.id, videoUrl);
       setLoading(false);
+      setVideoUrl("");
+      close();
     } catch (e) {
       console.error(e);
     } finally {
-      setVideoUrl("");
+      setLoading(false);
     }
   };
 
   return (
-    <form className="flex flex-col gap-y-8" onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-y-8 " onSubmit={handleSubmit}>
       <FormInput
         label="Video URL"
         type="text"
@@ -35,11 +37,14 @@ const NewVideoForm = () => {
         id="video-url"
         value={videoUrl}
         onChange={setVideoUrl}
+        className="placeholder:text-black"
       />
 
-      <Button text="Add Video" type="submit" loading={loading}>
-        Add Video
-      </Button>
+      {user && (
+        <Button text="Add Video" type="submit" loading={loading}>
+          Add Video
+        </Button>
+      )}
     </form>
   );
 };

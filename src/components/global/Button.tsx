@@ -19,18 +19,25 @@ const Button: React.FC<ButtonProps> = ({
   className,
   children,
 }) => {
+  const defaultBgClass = "bg-violet-500 hover:bg-violet-600";
+  const baseClasses =
+    "flex items-center gap-x-2 text-sm text-white rounded-md duration-300 border-2 border-transparent hover:border-violet-500 md:p-2 place-content-center p-1";
+
   return (
     <button
       aria-label={text}
       type={type}
       onClick={onClick}
       disabled={loading}
-      className={
-        "bg-violet-500 flex items-center gap-x-2 text-sm  text-white rounded-md p-2 hover:bg-violet-600 duration-300 border-2 border-transparent hover:border-violet-500  place-content-center " +
-        (loading ? "cursor-not-allowed pointer-events-none " : "") +
-        " " +
-        className
-      }
+      className={`
+        ${baseClasses}
+        ${
+          className?.includes("bg-")
+            ? className
+            : `${defaultBgClass} ${className}`
+        }
+        ${loading ? "cursor-not-allowed pointer-events-none" : ""}
+      `.trim()}
     >
       {loading ? <Spinner /> : children ? children : text}
     </button>

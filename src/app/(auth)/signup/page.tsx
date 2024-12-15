@@ -7,7 +7,7 @@ import RegisterForm from "@/components/auth/RegisterForm";
 
 const page = () => {
   return (
-    <div className="max-w-[400px] py-8 mx-auto space-y-4">
+    <div className="w-4/5 max-w-[400px] py-8 mx-auto space-y-4">
       <div className="flex flex-col items-center gap-y-2">
         <Image src={logo} alt="logo" width={200} />
         <h2 className="text-4xl font-bold">Tube Buddy</h2>

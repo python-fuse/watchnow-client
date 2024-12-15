@@ -47,3 +47,31 @@ body {
   left: 0;
   font-size: 14px;
 }
+
+/* ultra slim dark scrollbar */
+
+::-webkit-scrollbar {
+  width: 5px;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+body {
+  scrollbar-width: 0px;
+  scrollbar-color: transparent transparent;
+}
+
+.responsive-container {
+  @apply md:w-4/5 mx-auto;
+}

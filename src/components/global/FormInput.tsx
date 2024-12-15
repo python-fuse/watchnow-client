@@ -7,6 +7,7 @@ interface FormInputProps {
   value: string;
   type: string;
   onChange: (value: string) => void;
+  className?: string;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -16,13 +17,14 @@ const FormInput: React.FC<FormInputProps> = ({
   type,
   value,
   id,
+  className,
 }) => {
   return (
     <div className="flex flex-col  gap-y-4 relative">
       <input
         type={type}
         id={id}
-        className="form-input h-[43px]  bg-transparent rounded-md p-2 border-2 outline-none hover:border-violet-500 focus:border-violet-500 duration-300 placeholder:text-gray-400 placeholder:duration-300 text-sm"
+        className={`form-input h-[43px]  bg-transparent rounded-md p-2 border-2 outline-none hover:border-violet-500 focus:border-violet-500 duration-300 placeholder:text-gray-400 placeholder:duration-300 text-sm ${className}`}
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}

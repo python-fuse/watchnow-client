@@ -14,10 +14,10 @@ class VideoService {
     }
   }
 
-  static async createVideo(userId: string, url: string  ) {
+  static async createVideo(userId: string, url: string) {
     try {
       const response = await axios.post(
-        `/api/videos/withUrl//user/${userId}`,
+        `/api/videos/withUrl/user/${userId}`,
         { url },
         {
           withCredentials: true,
