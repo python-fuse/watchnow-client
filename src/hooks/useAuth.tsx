@@ -1,11 +1,11 @@
 "use client";
 import AuthService from "@/lib/AuthService";
-import { User } from "@/lib/definitions";
+import { TUser } from "@/lib/definitions";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const useAuth = () => {
-  const [user, setIsAuthenticated] = useState<User | null>(null);
+  const [user, setIsAuthenticated] = useState<TUser | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 

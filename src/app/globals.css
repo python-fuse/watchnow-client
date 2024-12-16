@@ -75,3 +75,8 @@ body {
 .responsive-container {
   @apply md:w-4/5 mx-auto;
 }
+
+.toast {
+  box-shadow: 0 0 4px black;
+  color: green;
+}

@@ -5,7 +5,7 @@ import Spinner from "@/components/global/Spinner";
 import VideoCard from "@/components/videos/VideoCard";
 import { useModal } from "@/contexts/modalContext";
 import useAuth from "@/hooks/useAuth";
-import { Video } from "@/lib/definitions";
+import { TVideo } from "@/lib/definitions";
 import VideoService from "@/lib/VideoService";
 import { error } from "console";
 import { useEffect, useState } from "react";
@@ -14,7 +14,7 @@ import io, { Socket } from "socket.io-client";
 
 const page = () => {
   const { user, loading } = useAuth();
-  const [videos, setVideos] = useState<Video[]>([]);
+  const [videos, setVideos] = useState<TVideo[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
 
   const { openModal } = useModal();
@@ -51,12 +51,12 @@ const page = () => {
   useEffect(() => {
     if (!socket || !user) return;
 
-    const handleNewVideo = (newVideo: Video) => {
+    const handleNewVideo = (newVideo: TVideo) => {
       console.log(newVideo);
       setVideos([...videos, newVideo]);
     };
 
-    const handleUpdate = async (newVideo: Video) => {
+    const handleUpdate = async (newVideo: TVideo) => {
       const res = await VideoService.getVideos(user?.id);
       setVideos([...res]);
     };

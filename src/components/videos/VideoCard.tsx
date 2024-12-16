@@ -1,4 +1,4 @@
-import { Video } from "@/lib/definitions";
+import { TVideo } from "@/lib/definitions";
 import Button from "../global/Button";
 import VideoService from "@/lib/VideoService";
 import Modal from "../global/Modal";
@@ -7,19 +7,25 @@ import EditVideoModal from "./NewVideoModal";
 import { useState } from "react";
 import Image from "next/image";
 import NewVideoModal from "./NewVideoModal";
+import { useToast } from "@/contexts/toastContext";
 
 interface VideoCardProps {
-  video: Video;
+  video: TVideo;
 }
 
 const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
   const [loading, setLoading] = useState(false);
   const { closeModal } = useModal();
+  const { addToast } = useToast();
 
-  const handleWatch = async (status: Video["status"]) => {
+  const handleWatch = async (status: TVideo["status"]) => {
     setLoading(true);
     await VideoService.updateVideo(video.id, {
       status: status,
+    });
+    addToast({
+      status: "success",
+      content: "Status updated!",
     });
     if (status === "Watching") {
       window.open(video.url, "_blank");
@@ -60,7 +66,15 @@ const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
         </div>
 
         <div className="flex flex-col py-2 pr-5 w-3/5 md:flex-1">
-          <h2 className="text-lg md:text-xl font-bold truncate md:w-4/5">
+          <h2
+            className="text-lg md:text-xl font-bold truncate md:w-4/5"
+            onClick={() => {
+              addToast({
+                content: video.title,
+                status: "warning",
+              });
+            }}
+          >
             {video.title}
           </h2>
           <div className="w-4/5 h-10 text-gray-400 text-xs text-wrap">
@@ -79,6 +93,17 @@ const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
               text="Delete"
               className="text-xs md:px-7 md:text-sm bg-red-600 p-2"
               onClick={async () => {
+                try {
+                  addToast({
+                    status: "success",
+                    content: "Video deleted!",
+                  });
+                } catch (e) {
+                  addToast({
+                    status: "error",
+                    content: "Video deletion failed!",
+                  });
+                }
                 await VideoService.deleteVideo(video.id);
               }}
             />

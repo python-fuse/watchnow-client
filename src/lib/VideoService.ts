@@ -1,5 +1,5 @@
 import axios from "@/lib/AxiosService";
-import { Video } from "./definitions";
+import { TVideo } from "./definitions";
 
 class VideoService {
   static async getVideos(userId: string) {
@@ -30,7 +30,7 @@ class VideoService {
     }
   }
 
-  static async addVideo(userId: string, video: Video) {
+  static async addVideo(userId: string, video: TVideo) {
     try {
       const response = await axios.post(`/api/videos/user/${userId}`, video, {
         withCredentials: true,
@@ -42,7 +42,7 @@ class VideoService {
     }
   }
 
-  static async updateVideo(videoId: string, videoData: Partial<Video>) {
+  static async updateVideo(videoId: string, videoData: Partial<TVideo>) {
     try {
       const response = await axios.patch(`/api/videos/${videoId}`, videoData, {
         withCredentials: true,

@@ -5,8 +5,10 @@ import Button from "../global/Button";
 import { useFormik } from "formik";
 import AuthService from "@/lib/AuthService";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/contexts/toastContext";
 
 const LoginForm = () => {
+  const { addToast } = useToast();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
@@ -16,8 +18,16 @@ const LoginForm = () => {
       const response = await AuthService.login(values.email, values.password);
       console.log(response);
       router.push("/dashboard");
+      addToast({
+        content: "Logged in successfully!",
+        status: "success",
+      });
     } catch (e: any) {
       console.log(e.response.data.message);
+      addToast({
+        content: "An error occured!",
+        status: "error",
+      });
     } finally {
       setLoading(false);
     }

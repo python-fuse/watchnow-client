@@ -1,4 +1,4 @@
-export type Video = {
+export type TVideo = {
   id: string;
   title: string;
   description: string;
@@ -11,11 +11,17 @@ export type Video = {
   updatedAt: string;
 };
 
-export type User = {
+export type TUser = {
   id: string;
   email: string;
   name?: string;
   role: string;
   createdAt: string;
   updatedAt: string;
+};
+
+export type TToastItem = {
+  id: string;
+  content: string;
+  status: "error" | "warning" | "success" | "info";
 };

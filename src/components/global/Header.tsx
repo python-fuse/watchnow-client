@@ -6,15 +6,25 @@ import Link from "next/link";
 import { FaSignOutAlt } from "react-icons/fa";
 import AuthService from "@/lib/AuthService";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/contexts/toastContext";
 
 const Header = () => {
   const router = useRouter();
+  const { addToast } = useToast();
   const handleLogout = async () => {
     try {
       await AuthService.logout();
       router.push("/login");
+      addToast({
+        content: "Logged out!",
+        status: "info",
+      });
     } catch (error) {
       console.error(error);
+      addToast({
+        content: "An error occured!",
+        status: "error",
+      });
     }
   };
   return (

@@ -1,9 +1,9 @@
-import { Video } from "@/lib/definitions";
+import { TVideo } from "@/lib/definitions";
 import Modal from "../global/Modal";
 import FormInput from "../global/FormInput";
 
 interface NEwVideoModalProps {
-  video: Video;
+  video: TVideo;
   closeModal: () => void;
 }
 
