@@ -8,11 +8,14 @@ const Modal = ({ children }: { children: React.ReactNode }) => {
   const { isModalOpen, closeModal } = useModal();
 
   useEffect(() => {
-    window.addEventListener("keydown", (e) => {
+    const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         closeModal();
       }
-    });
+    };
+
+    window.addEventListener("keydown", handleEscape);
+    return () => window.removeEventListener("keydown", handleEscape);
   }, [closeModal]);
 
   return (
