@@ -1,10 +1,18 @@
 import { TToastItem } from "@/lib/definitions";
-import React, { useContext, createContext, useState } from "react";
+import React, {
+  useContext,
+  createContext,
+  useState,
+  useCallback,
+  useEffect,
+  useRef,
+} from "react";
 
 interface ToastContextProps {
   addToast: (newItem: Omit<TToastItem, "id">) => void;
   deleteToast: (id: string) => void;
   toastItems: TToastItem[];
+  duration?: number;
 }
 
 const ToastContext = createContext<ToastContextProps | null>(null);
@@ -13,18 +21,35 @@ export const ToastContextProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [toastItems, setToastItems] = useState<TToastItem[]>([]);
+  const timeoutRefs = useRef<Map<String, NodeJS.Timeout>>(new Map());
 
-  const deleteToast = (id: string) =>
-    setToastItems(toastItems.filter((item) => item.id !== id));
+  useEffect(() => {
+    timeoutRefs.current.forEach((timeout) => clearTimeout(timeout));
+  }, []);
 
-  const addToast = (newItem: Omit<TToastItem, "id">) => {
-    const newest = { ...newItem, id: crypto.randomUUID() };
-    setToastItems([...toastItems, newest]);
+  const deleteToast = useCallback((id: string) => {
+    const timeout = timeoutRefs.current.get(id);
+    if (timeout) {
+      clearTimeout(timeout);
+      timeoutRefs.current.delete(id);
+    }
+    setToastItems((prev) => prev.filter((toast) => toast.id !== id));
+  }, []);
 
-    setTimeout(() => {
-      deleteToast(newest.id);
-    }, 2000);
-  };
+  const addToast = useCallback(
+    (newItem: Omit<TToastItem, "id">) => {
+      const id = crypto.randomUUID();
+      const newest = { ...newItem, id };
+      setToastItems((prev) => [...prev, newest]);
+
+      const timeout = setTimeout(() => {
+        deleteToast(newest.id);
+      }, newest.duration || 4000);
+
+      timeoutRefs.current.set(id, timeout);
+    },
+    [deleteToast]
+  );
 
   return (
     <ToastContext.Provider value={{ addToast, deleteToast, toastItems }}>

@@ -1,3 +1,4 @@
+import Modal from "@/components/global/Modal";
 import React, { createContext, useContext, useState } from "react";
 
 interface ModalContextProps {

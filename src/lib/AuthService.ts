@@ -47,6 +47,7 @@ class AuthService {
   async logout() {
     try {
       await axios.post("/api/auth/logout");
+      localStorage.removeItem("user");
     } catch (e) {
       throw e;
     }

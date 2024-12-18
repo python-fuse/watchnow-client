@@ -3,8 +3,6 @@ import { TToastItem } from "@/lib/definitions";
 import { BsCheckCircle, BsInfoCircle, BsX, BsXCircle } from "react-icons/bs";
 import { IoWarningOutline } from "react-icons/io5";
 
-import style from "@/styles/ToastItem.module.css";
-
 interface ToastItemsProps {
   status: TToastItem["status"];
   content: TToastItem["content"];
@@ -15,7 +13,7 @@ const ToastItem: React.FC<ToastItemsProps> = ({ status, content, toastId }) => {
   const { deleteToast } = useToast();
   return (
     <div
-      className={`toast flex items-center justify-between p-2 rounded  gap-x-2 ${
+      className={`toast flex items-center text-xs w-max justify-between p-2 rounded  gap-x-2 ${
         status === "success"
           ? "bg-green-400"
           : status === "error"

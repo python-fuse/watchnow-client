@@ -5,11 +5,13 @@ import Button from "../global/Button";
 import { useFormik } from "formik";
 import AuthService from "@/lib/AuthService";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/contexts/toastContext";
 
 const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
+  const { addToast } = useToast();
 
   const handleSubmit = async (values: {
     name?: string;
@@ -25,9 +27,17 @@ const RegisterForm = () => {
         values.name
       );
       console.log(response);
+      addToast({
+        content: "Account created successfully",
+        status: "success",
+      });
       router.push("/login");
     } catch (error: any) {
       console.log(error.response.data);
+      addToast({
+        content: "An error occurred",
+        status: "error",
+      });
     } finally {
       setLoading(false);
     }

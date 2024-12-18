@@ -34,7 +34,7 @@ const Header = () => {
           src={logo}
           alt="WatchNow"
           width={80}
-          className="w-[40px] md:w-[80px"
+          className="w-[40px] md:w-[80px]"
         />
       </Link>
 

@@ -1,12 +1,9 @@
 import { TVideo } from "@/lib/definitions";
 import Button from "../global/Button";
 import VideoService from "@/lib/VideoService";
-import Modal from "../global/Modal";
 import { useModal } from "@/contexts/modalContext";
-import EditVideoModal from "./NewVideoModal";
 import { useState } from "react";
 import Image from "next/image";
-import NewVideoModal from "./NewVideoModal";
 import { useToast } from "@/contexts/toastContext";
 
 interface VideoCardProps {
@@ -15,7 +12,6 @@ interface VideoCardProps {
 
 const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
   const [loading, setLoading] = useState(false);
-  const { closeModal } = useModal();
   const { addToast } = useToast();
 
   const handleWatch = async (status: TVideo["status"]) => {
@@ -31,12 +27,10 @@ const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
       window.open(video.url, "_blank");
     }
     setLoading(false);
-    // window.location.reload();
   };
 
   return (
     <>
-      <NewVideoModal video={video} closeModal={closeModal} />
       <div className="relative rounded-md bg-white flex overflow-hidden h-40 gap-x-5">
         <div
           className={

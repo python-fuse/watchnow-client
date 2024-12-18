@@ -1,5 +1,6 @@
 import axios from "@/lib/AxiosService";
 import { TVideo } from "./definitions";
+import ReminderService from "./ReminderService";
 
 class VideoService {
   static async getVideos(userId: string) {
@@ -16,14 +17,21 @@ class VideoService {
 
   static async createVideo(userId: string, url: string) {
     try {
-      const response = await axios.post(
+      const videoRes = await axios.post(
         `/api/videos/withUrl/user/${userId}`,
         { url },
         {
           withCredentials: true,
         }
       );
-      const data = await response.data;
+
+      const now = new Date();
+      now.setMinutes(now.getMinutes());
+
+      const reminerRes = await ReminderService.createReminder(
+        videoRes.data.userId
+      );
+      const data = await videoRes.data;
       return data;
     } catch (e) {
       throw e;

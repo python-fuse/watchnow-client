@@ -77,6 +77,30 @@ body {
 }
 
 .toast {
-  box-shadow: 0 0 4px black;
-  color: green;
+  box-shadow: 0 0 10px 4px rgba(0, 0, 0, 0.548);
+  animation: popup 0.5s ease-in-out forwards;
+}
+
+@keyframes popup {
+  50% {
+    translate: 0 -10px;
+  }
+  to {
+    translate: 0px;
+  }
+}
+
+.toast-exit {
+  animation: slideOut 0.3s ease-in-out forwards;
+}
+
+@keyframes slideOut {
+  from {
+    translate: 0;
+    opacity: 1;
+  }
+  to {
+    translate: 100px;
+    opacity: 0;
+  }
 }

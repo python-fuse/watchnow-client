@@ -2,6 +2,7 @@
 
 import Button from "@/components/global/Button";
 import Spinner from "@/components/global/Spinner";
+import NewVideoModal from "@/components/videos/NewVideoModal";
 import VideoCard from "@/components/videos/VideoCard";
 import { useModal } from "@/contexts/modalContext";
 import useAuth from "@/hooks/useAuth";
@@ -17,7 +18,7 @@ const page = () => {
   const [videos, setVideos] = useState<TVideo[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
 
-  const { openModal } = useModal();
+  const { openModal, closeModal } = useModal();
   useEffect(() => {
     const getUserVideos = async () => {
       console.log(user);
@@ -62,7 +63,7 @@ const page = () => {
     };
 
     // listen for new videos
-    socket.on("video:added", handleNewVideo);
+    socket.on("video:created", handleNewVideo);
     socket.on("video:updated", handleUpdate);
     socket.on("video:deleted", handleUpdate);
 
@@ -75,6 +76,7 @@ const page = () => {
 
   return (
     <div className="flex flex-col gap-y-4 responsive-container ">
+      <NewVideoModal closeModal={closeModal} />
       <div className="flex justify-between">
         <h2 className="text-2xl font-semibold">Saved videos</h2>
 
