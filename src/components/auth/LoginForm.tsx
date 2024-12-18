@@ -64,7 +64,12 @@ const LoginForm = () => {
         onChange={formik.handleChange("password")}
       />
 
-      <Button type="submit" text="Log in" loading={loading} />
+      <Button
+        type="submit"
+        disabled={!formik.values.email || !formik.values.password}
+        text="Log in"
+        loading={loading}
+      />
     </form>
   );
 };

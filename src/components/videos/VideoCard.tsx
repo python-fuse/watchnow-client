@@ -88,6 +88,7 @@ const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
               className="text-xs md:px-7 md:text-sm bg-red-600 p-2"
               onClick={async () => {
                 try {
+                  await VideoService.deleteVideo(video.id);
                   addToast({
                     status: "success",
                     content: "Video deleted!",
@@ -98,7 +99,6 @@ const VideoCard: React.FC<VideoCardProps> = ({ video }) => {
                     content: "Video deletion failed!",
                   });
                 }
-                await VideoService.deleteVideo(video.id);
               }}
             />
 

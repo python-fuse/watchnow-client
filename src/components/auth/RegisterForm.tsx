@@ -93,7 +93,16 @@ const RegisterForm = () => {
         onChange={formik.handleChange("confirmPassword")}
       />
 
-      <Button type="submit" text="Sign up" loading={loading} />
+      <Button
+        type="submit"
+        disabled={
+          !formik.values.email ||
+          !formik.values.password ||
+          !formik.values.confirmPassword
+        }
+        text="Sign up"
+        loading={loading}
+      />
     </form>
   );
 };
