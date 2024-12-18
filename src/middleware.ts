@@ -1,16 +1,23 @@
+import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
-import AuthService from "./lib/AuthService";
 
 export const middleware = async (req: NextRequest) => {
-  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
   try {
-    const res = await AuthService.checkAuth();
+    // Try to check authentication via API
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/check-auth`,
+      {
+        headers: {
+          Cookie: req.headers.get("cookie") || "",
+        },
+      }
+    );
 
-    if (res.status !== 200) {
-      throw new Error("Unauthorized");
-    }
+    // If authentication fails, redirect to login
+    return NextResponse.next();
   } catch (error) {
-    return NextResponse.redirect(new URL("/login", req.nextUrl).toString());
+    // Redirect to login page if authentication fails
+    return NextResponse.redirect(new URL("/login", req.url));
   }
 };
 
