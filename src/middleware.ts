@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 
 export const middleware = async (req: NextRequest) => {
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
   try {
-    const res = await fetch("http://localhost:3031/api/auth/check-auth", {
+    const res = await fetch(`${BACKEND_URL}/api/auth/check-auth`, {
       method: "GET",
       headers: {
         Cookie: req.headers.get("cookie") || "", // Pass cookies from the request
