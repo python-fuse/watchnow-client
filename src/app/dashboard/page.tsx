@@ -13,7 +13,7 @@ import { useEffect, useState } from "react";
 import { FaPlus } from "react-icons/fa";
 import io, { Socket } from "socket.io-client";
 
-const page = () => {
+const DashboardPage = () => {
   const { user, loading } = useAuth();
   const [videos, setVideos] = useState<TVideo[]>([]);
   const [socket, setSocket] = useState<Socket | null>(null);
@@ -99,4 +99,4 @@ const page = () => {
     </div>
   );
 };
-export default page;
+export default DashboardPage;
