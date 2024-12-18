@@ -2,16 +2,18 @@
 "use client";
 
 import { useModal } from "@/contexts/modalContext";
-import React from "react";
+import React, { useEffect } from "react";
 
 const Modal = ({ children }: { children: React.ReactNode }) => {
   const { isModalOpen, closeModal } = useModal();
 
-  window.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      closeModal();
-    }
-  });
+  useEffect(() => {
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") {
+        closeModal();
+      }
+    });
+  }, [closeModal]);
 
   return (
     <div
