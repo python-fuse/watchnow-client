@@ -8,38 +8,29 @@ export const middleware = async (req: NextRequest) => {
     if (!cookie) {
       return NextResponse.redirect(new URL("/login", req.url));
     }
-    // Use fetch to check authentication via API
-    // const response = await fetch(
-    //   `${
-    //     process.env.NODE_ENV === "development"
-    //       ? process.env.NEXT_PUBLIC_BACKEND_URL
-    //       : process.env.NEXT_PUBLIC_BACKEND_URL_PROD
-    //   }/api/auth/check-auth`,
-    //   {
-    //     method: "GET",
-    //     headers: {
-    //       Accept: "application/json",
-    //       "Content-Type": "application/json",
-    //       Cookie: cookie, // Forward cookie to the authentication endpoint
-    //       Origin:
-    //         process.env.NODE_ENV === "development"
-    //           ? "http://localhost:3000"
-    //           : process.env.NEXT_PUBLIC_BASE_URL_PROD!,
-    //     },
-    //     credentials: "include",
-    //   }
-    // );
 
-    const response = await AxiosService.get("/api/auth/check-auth", {
-      headers: {
-        Cookie: cookie,
-        Origin:
-          process.env.NODE_ENV === "development"
-            ? "http://localhost:3000"
-            : process.env.NEXT_PUBLIC_BASE_URL_PROD!,
-      },
-      withCredentials: true,
-    });
+    console.log("Cookie from middleware:", cookie);
+    // Use fetch to check authentication via API
+    const response = await fetch(
+      `${
+        process.env.NODE_ENV === "development"
+          ? process.env.NEXT_PUBLIC_BACKEND_URL
+          : process.env.NEXT_PUBLIC_BACKEND_URL_PROD
+      }/api/auth/check-auth`,
+      {
+        method: "GET",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Cookie: cookie, // Forward cookie to the authentication endpoint
+          Origin:
+            process.env.NODE_ENV === "development"
+              ? "http://localhost:3000"
+              : process.env.NEXT_PUBLIC_BASE_URL_PROD!,
+        },
+        credentials: "include",
+      }
+    );
 
     // If authenticated, proceed
     if (response.status == 200) {
