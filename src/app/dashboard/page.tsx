@@ -33,7 +33,13 @@ const DashboardPage = () => {
   }, [loading, user]);
 
   useEffect(() => {
-    const newSocket = io("http://localhost:3031");
+    const newSocket = io(
+      `${
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3031"
+          : process.env.NEXT_PUBLIC_BACKEND_URL_PROD
+      }`
+    );
     newSocket.on("connect", () => {
       console.log("Connected");
     });
