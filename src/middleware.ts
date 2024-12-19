@@ -25,7 +25,7 @@ export const middleware = async (req: NextRequest) => {
           Origin:
             process.env.NODE_ENV === "development"
               ? "http://localhost:3000"
-              : process.env.NEXT_PUBLIC_BACKEND_URL_PROD!,
+              : process.env.NEXT_PUBLIC_BASE_URL_PROD!,
         },
         credentials: "include",
       }
