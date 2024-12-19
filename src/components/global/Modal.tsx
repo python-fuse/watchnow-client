@@ -20,11 +20,13 @@ const Modal = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <div
-      className={`fixed text-black top-0 left-0 w-full h-full duration-300 z-30 bg-black bg-opacity-50 flex items-center justify-center ${
+      className={`fixed text-black top-0 left-0 w-full h-full duration-300 z-30 bg-black bg-opacity-50 ${
         isModalOpen ? "" : "hidden invisible"
       }`}
     >
-      {children}
+      <div className="scale-0 transform transition-transform duration-300 animate-grow flex overflow-hidden p-4 rounded-lg  h-screen items-center justify-center">
+        {children}
+      </div>
     </div>
   );
 };

@@ -1,19 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
-import AxiosService from "./lib/AxiosService";
+import { cookies } from "next/headers";
 
 export const middleware = async (req: NextRequest) => {
-  try {
-    // Check if the cookie is present
-    const cookie = req.headers.get("cookie");
-    if (!cookie) {
-      return NextResponse.redirect(new URL("/login", req.url));
-    }
+  const cookie = cookies().get("connect.sid");
+  console.log("Cookie from middleware:", cookie);
 
-    console.log("Cookie from middleware:", cookie);
-    // Use fetch to check authentication via API
+  if (!cookie) {
+    console.log("Session cookie missing");
+    return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  console.log("Cookie found:", cookie);
+
+  try {
     const response = await fetch(
       `${
-        process.env.NODE_ENV === "development"
+        process.env.NODE_ENV == "development"
           ? process.env.NEXT_PUBLIC_BACKEND_URL
           : process.env.NEXT_PUBLIC_BACKEND_URL_PROD
       }/api/auth/check-auth`,
@@ -22,27 +24,21 @@ export const middleware = async (req: NextRequest) => {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          Cookie: cookie, // Forward cookie to the authentication endpoint
-          Origin:
-            process.env.NODE_ENV === "development"
-              ? "http://localhost:3000"
-              : process.env.NEXT_PUBLIC_BASE_URL_PROD!,
+          Cookie: `connect.sid=${cookie.value}`,
         },
         credentials: "include",
       }
     );
 
-    // If authenticated, proceed
-    if (response.status == 200) {
-      console.log("Check from middleware: Authenticated");
+    if (response.status === 200) {
+      console.log("Authenticated");
       return NextResponse.next();
     }
-    // If authentication fails, redirect to login
-    console.log("Check from middleware: Not Authenticated");
+
+    console.log("Authentication failed");
     return NextResponse.redirect(new URL("/login", req.url));
   } catch (error) {
-    console.error("Fetch Auth Error:", error);
-    // Redirect to login page if an error occurs
+    console.error("Middleware fetch error:", error);
     return NextResponse.redirect(new URL("/login", req.url));
   }
 };

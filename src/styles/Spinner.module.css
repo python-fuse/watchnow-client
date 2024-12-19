@@ -3,7 +3,7 @@
   width: 20px;
   border-radius: 50%;
   border-top: 2px solid #f3f3f3;
-  border-bottom: 2px solid #f3f3f3;
+  border-bottom: 2px solid transparent;
   border-left: 2px solid transparent;
   border-right: 2px solid transparent;
 
