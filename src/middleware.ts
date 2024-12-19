@@ -31,11 +31,8 @@ export const middleware = async (req: NextRequest) => {
       }
     );
 
-    const data = await response.json();
-    console.log("response data", response);
-
     // If authenticated, proceed
-    if (response.ok && data.user) {
+    if (response.status == 200) {
       return NextResponse.next();
     }
 

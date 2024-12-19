@@ -25,8 +25,9 @@ const LoginForm = () => {
     } catch (e: any) {
       console.log(e.response.data.message);
       addToast({
-        content: "An error occured!",
+        content: e.response.data.message,
         status: "error",
+        duration: 5000,
       });
     } finally {
       setLoading(false);
