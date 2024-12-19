@@ -13,8 +13,8 @@ export const middleware = async (req: NextRequest) => {
     const response = await fetch(
       `${
         process.env.NODE_ENV === "development"
-          ? "http://localhost:3031"
-          : "https://tubebuddy.vercel.app"
+          ? process.env.NEXT_PUBLIC_BACKEND_URL
+          : process.env.NEXT_PUBLIC_BACKEND_URL_PROD
       }/api/auth/check-auth`,
       {
         method: "GET",
@@ -25,7 +25,7 @@ export const middleware = async (req: NextRequest) => {
           Origin:
             process.env.NODE_ENV === "development"
               ? "http://localhost:3000"
-              : "https://tubebuddy.vercel.app",
+              : process.env.NEXT_PUBLIC_BACKEND_URL_PROD!,
         },
         credentials: "include",
       }
