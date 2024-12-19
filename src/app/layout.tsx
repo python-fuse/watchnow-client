@@ -8,7 +8,7 @@ const outfit = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "WatchNow",
+  title: "Tube Buddy",
   description: "Your watch later, closer.",
 };
 
