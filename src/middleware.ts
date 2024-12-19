@@ -1,22 +1,49 @@
-import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
 export const middleware = async (req: NextRequest) => {
   try {
-    // Try to check authentication via API
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/check-auth`,
+    // Check if the cookie is present
+    const cookie = req.headers.get("cookie");
+
+    if (!cookie) {
+      return NextResponse.redirect(new URL("/login", req.url));
+    }
+
+    // Use fetch to check authentication via API
+    const response = await fetch(
+      `${
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:3031"
+          : "https://tubebuddy.vercel.app"
+      }/api/auth/check-auth`,
       {
+        method: "GET",
         headers: {
-          Cookie: req.headers.get("cookie") || "",
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Cookie: cookie, // Forward cookie to the authentication endpoint
+          Origin:
+            process.env.NODE_ENV === "development"
+              ? "http://localhost:3000"
+              : "https://tubebuddy.vercel.app",
         },
+        credentials: "include",
       }
     );
 
+    const data = await response.json();
+    console.log("response data", response);
+
+    // If authenticated, proceed
+    if (response.ok && data.user) {
+      return NextResponse.next();
+    }
+
     // If authentication fails, redirect to login
-    return NextResponse.next();
+    return NextResponse.redirect(new URL("/login", req.url));
   } catch (error) {
-    // Redirect to login page if authentication fails
+    console.error("Fetch Auth Error:", error);
+    // Redirect to login page if an error occurs
     return NextResponse.redirect(new URL("/login", req.url));
   }
 };

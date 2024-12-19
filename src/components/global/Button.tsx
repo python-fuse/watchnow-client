@@ -37,7 +37,7 @@ const Button: React.FC<ButtonProps> = ({
             : `${defaultBgClass} ${className}`
         }
         ${loading ? "cursor-not-allowed pointer-events-none" : ""}
-        ${disabled ? "opacity-50 cursor-not-allowed" : ""}
+        ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}
       `.trim()}
     >
       {loading ? <Spinner /> : children ? children : text}

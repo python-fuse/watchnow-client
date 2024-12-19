@@ -8,7 +8,9 @@ const layout = ({ children }: { children: ReactNode }) => {
   return (
     <ToastContextProvider>
       <ToastContainer />
-      {children}
+      <div className="flex h-screen  justify-center place-items-center w-full">
+        {children}
+      </div>
     </ToastContextProvider>
   );
 };
