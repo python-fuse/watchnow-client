@@ -27,12 +27,18 @@ export const middleware = async (req: NextRequest) => {
           Cookie: `connect.sid=${cookie.value}`,
         },
         credentials: "include",
+        cache: "no-store",
       }
     );
 
     if (response.status === 200) {
-      console.log("Authenticated");
-      return NextResponse.next();
+      const nextResponse = NextResponse.next();
+      // Preserve the cookie in the response
+      const setCookieHeader = response.headers.get("set-cookie");
+      if (setCookieHeader) {
+        nextResponse.headers.set("set-cookie", setCookieHeader);
+      }
+      return nextResponse;
     }
 
     console.log("Authentication failed");
