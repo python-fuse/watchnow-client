@@ -8,8 +8,9 @@ const outfit = IBM_Plex_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Tube Buddy",
-  description: "Your watch later, closer.",
+  title: "Tube Buddy - Never Miss a Video Again",
+  description:
+    "Save YouTube videos and get email reminders for unwatched content",
 };
 
 export default function RootLayout({

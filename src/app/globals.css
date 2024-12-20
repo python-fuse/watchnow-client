@@ -117,3 +117,13 @@ body {
     transform: scale(1);
   }
 }
+
+.animate-start {
+  animation: start 2s ease-in-out infinite;
+}
+
+@keyframes start {
+  50% {
+    transform: translateX(-10px);
+  }
+}

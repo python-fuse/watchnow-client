@@ -21,7 +21,7 @@ const Button: React.FC<ButtonProps> = ({
 }) => {
   const defaultBgClass = "bg-violet-500 hover:bg-violet-600";
   const baseClasses =
-    "flex items-center gap-x-2 text-sm text-white rounded-md duration-300 border-2 border-transparent hover:border-violet-500 md:p-2 place-content-center p-1";
+    "flex items-center gap-x-2 text-sm  rounded-md duration-300 border-2 border-transparent hover:border-violet-500 md:p-2 place-content-center p-1";
 
   return (
     <button
@@ -30,12 +30,12 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={loading}
       className={`
-        ${baseClasses}
         ${
           className?.includes("bg-")
             ? className
             : `${defaultBgClass} ${className}`
         }
+        ${baseClasses}
         ${loading ? "cursor-not-allowed pointer-events-none" : ""}
         ${disabled ? "opacity-50 cursor-not-allowed pointer-events-none" : ""}
       `.trim()}
