@@ -1,9 +1,9 @@
-import axiosInstance from "./AxiosService";
+import axios from "./AxiosService";
 
 class AuthService {
   async login(email: string, password: string) {
     try {
-      const response = await axiosInstance.post(`/api/auth/login`, {
+      const response = await axios.post(`/api/auth/login`, {
         email,
         password,
       });
@@ -16,7 +16,7 @@ class AuthService {
 
   async register(email: string, password: string, name: string | undefined) {
     try {
-      const response = await axiosInstance.post(
+      const response = await axios.post(
         "/api/auth/register",
         {
           email,
@@ -32,29 +32,21 @@ class AuthService {
       throw e;
     }
   }
+
   async checkAuth() {
     try {
-      const response = await axiosInstance.get("/api/auth/check-auth", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Origin:
-            process.env.NODE_ENV === "development"
-              ? "http://localhost:3000"
-              : "https://tubebuddy.vercel.app",
-        },
+      const response = await axios.get("/api/auth/check-auth", {
         withCredentials: true,
       });
       return response.data;
-    } catch (error) {
-      console.error("Auth check failed:", error);
-      throw error;
+    } catch (e) {
+      throw e;
     }
   }
 
   async logout() {
     try {
-      await axiosInstance.post("/api/auth/logout");
+      await axios.post("/api/auth/logout");
       localStorage.removeItem("user");
     } catch (e) {
       throw e;
