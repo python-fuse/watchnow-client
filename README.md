@@ -41,7 +41,7 @@ A web application to help you track and manage your YouTube watch-later videos, 
 ## Environment Setup
 
 - Node.js 18+ recommended
-- Backend server running on port 3031 (separate repository)[https://github.com/watchnow-server]
+- Backend server running on port 3031 (separate repository)[https://github.com/python-fuse/watchnow-server]
 
 ## Project Structure
 
