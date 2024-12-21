@@ -2,20 +2,21 @@
 import AuthService from "@/lib/AuthService";
 import { TUser } from "@/lib/definitions";
 import { useRouter } from "next/navigation";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const useAuth = () => {
   const [user, setIsAuthenticated] = useState<TUser | null>(null);
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const checkAuth = async () => {
       try {
         setLoading(true);
         const user = await AuthService.checkAuth();
         setIsAuthenticated(user.user);
       } catch (error) {
+        console.error(error);
         setIsAuthenticated(null);
         router.push("/login");
       } finally {
