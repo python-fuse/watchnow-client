@@ -8,6 +8,7 @@ import useAuth from "@/hooks/useAuth";
 import { ReactNode } from "react";
 
 const layout = ({ children }: { children: ReactNode }) => {
+  const { user } = useAuth();
   return (
     <ModalProvider>
       <ToastContextProvider>
