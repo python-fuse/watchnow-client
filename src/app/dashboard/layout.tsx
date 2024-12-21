@@ -7,7 +7,7 @@ import { ToastContextProvider } from "@/contexts/toastContext";
 import useAuth from "@/hooks/useAuth";
 import { ReactNode } from "react";
 
-const layout = ({ children }: { children: ReactNode }) => {
+const Dashboardlayout = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth();
   return (
     <ModalProvider>
@@ -23,4 +23,4 @@ const layout = ({ children }: { children: ReactNode }) => {
     </ModalProvider>
   );
 };
-export default layout;
+export default Dashboardlayout;
