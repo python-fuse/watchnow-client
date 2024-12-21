@@ -31,15 +31,16 @@ export default function page() {
           />
         </div>
 
-        <Link href={"/dashboard"}>
-          <Button
-            text="Get Started"
-            className="bg-white   mx-auto text-xl hover:bg-gray-100 text-black"
+        <div className="w-max mx-auto">
+          <Link
+            href={"/login"}
+            className="flex w-max items-center justify-center 
+          bg-violet-500 hover:bg-violet-600 gap-x-2  p-4 rounded-lg backdrop-blur-sm  duration-300"
           >
             Get Started{" "}
             <BsArrowRight className="ml-2 duration-300 animate-start" />
-          </Button>
-        </Link>
+          </Link>
+        </div>
       </main>
       <footer className="mt-16 text-sm opacity-75">
         © {new Date().getFullYear()} Tube Buddy. All rights reserved.

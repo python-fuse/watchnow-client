@@ -19,9 +19,9 @@ const Button: React.FC<ButtonProps> = ({
   className,
   children,
 }) => {
-  const defaultBgClass = "bg-violet-500 hover:bg-violet-600";
+  const defaultBgClass = "bg-violet-500 hover:bg-violet-600 ";
   const baseClasses =
-    "flex items-center gap-x-2 text-sm  rounded-md duration-300 border-2 border-transparent hover:border-violet-500 md:p-2 place-content-center p-1";
+    "flex items-center gap-x-2 text-sm  rounded-md duration-300 border-2 border-transparent hover:border-violet-500 md:p-2 place-content-center p-1 text-white";
 
   return (
     <button

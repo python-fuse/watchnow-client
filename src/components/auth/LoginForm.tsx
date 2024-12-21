@@ -1,16 +1,24 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FormInput from "../global/FormInput";
 import Button from "../global/Button";
 import { useFormik } from "formik";
 import AuthService from "@/lib/AuthService";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/contexts/toastContext";
+import useAuth from "@/hooks/useAuth";
 
 const LoginForm = () => {
+  const { user } = useAuth();
   const { addToast } = useToast();
   const [loading, setLoading] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    if (user) {
+      router.push("/dashboard");
+    }
+  }, [user]);
 
   const handleSubmit = async (values: { email: string; password: string }) => {
     try {
