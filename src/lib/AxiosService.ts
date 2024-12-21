@@ -12,7 +12,9 @@ class AxiosService {
   axiosInstance = axios.create({
     baseURL: process.env.NEXT_PUBLIC_BACKEND_URL,
     withCredentials: true,
-    headers: config.headers,
+    headers: {
+      "Content-Type": "application/json",
+    },
   });
 }
 

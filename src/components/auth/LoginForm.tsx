@@ -23,9 +23,9 @@ const LoginForm = () => {
         status: "success",
       });
     } catch (e: any) {
-      console.log(e.response.data.message);
+      console.log(e);
       addToast({
-        content: e.response.data.message,
+        content: "error",
         status: "error",
         duration: 5000,
       });
